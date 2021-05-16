@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Confirmation Button</title>
+	<style type="text/css">
+
+		button {
+			border: none;
+			cursor: pointer;
+			padding: 12px;
+			min-width: 150px;
+		}
+
+		.confirm-whole {
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0,0,0,0.45);
+			animation: slideIn 0.4s;
+		}
+
+		@keyframes slideIn {
+
+			0% {
+				top: -270px;
+				height: 0%;
+			}
+
+			100% {
+				top: 0;
+				height: 100%;
+			}
+		}
+
+		.confirm {
+			display: block;
+			max-width: 600px;
+		}
+
+		#showcon1 {
+			position: relative;
+			margin: 65px auto;
+			background-color: white;
+			border-radius: 20px 20px 0px 0px;
+			text-align: center;
+			color: black;
+			padding-bottom: 17px;
+			padding-top: 20px; 
+		}
+
+		#showcon2 {
+			position: relative;
+			margin: auto;
+			top: -70px;
+			background-color: white;
+			padding-bottom: 100px;
+			border-radius: 0px 0px 20px 20px;
+			font-size: 18px;
+			text-align: center;
+			color: black; 
+		}
+
+		#showcon3 {
+			position: relative;
+			margin: auto;
+			left: -100px;
+			top: -142px;
+			background-color: #337ab7;
+			border-radius: 10px 0px 0px 10px;
+			min-width: 201px;
+			color: white;
+			box-shadow: 6px 8px 10px #999999;
+		}
+
+		#showcon4 {
+			position: relative;
+			margin: auto;
+			left: 100px;
+			top: -181px;
+			background-color: #e5e5e5;
+			border-radius: 0px 10px 10px 0px;
+			min-width: 201px;
+			box-shadow: 6px 8px 10px #999999;
+		}
+
+		#showcon3:hover {
+			background-color: #2e6da4;
+		}
+
+		.add {
+			display: block;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div id="wholeshow" class="confirm-whole">
+		<h1 id="showcon1" class="confirm">Reset</h1>
+		<p id="showcon2" class="confirm">Are you sure you want to reset?</p>
+		<button id="showcon3" class="confirm" onclick="reset()">Reset</button>
+		<button id="showcon4" class="confirm" onclick="cancel()">Cancel</button>
+	</div>
+
+	<button onclick="confirm()">Reset</button>
+
+	<script type="text/javascript">
+
+		function confirm() {
+			
+			document.getElementById("wholeshow").classList.add("add");
+		}
+
+		function reset() {
+		
+			const wholeshow = document.getElementById("wholeshow");
+    		const resetDir = () => { 
+      			wholeshow.removeEventListener("animationend", resetDir, true);
+      			wholeshow.style.animationDirection = "normal";
+      			wholeshow.classList.remove("add");
+    		};
+
+    		wholeshow.addEventListener("animationend", resetDir, true);
+    		wholeshow.style.animationDirection = "reverse";
+    		wholeshow.classList.remove("add");
+    		void wholeshow.offsetWidth; // force rerender
+    		wholeshow.classList.add("add");
+		}
+
+		function cancel() {
+
+    		const wholeshow = document.getElementById("wholeshow");
+    		const cancelDir = () => { 
+        		wholeshow.removeEventListener("animationend", cancelDir, true);
+        		wholeshow.style.animationDirection = "normal";
+        		wholeshow.classList.remove("add");
+    		};
+
+    		wholeshow.addEventListener("animationend", cancelDir, true);
+    		wholeshow.style.animationDirection = "reverse";
+    		wholeshow.classList.remove("add");
+    		void wholeshow.offsetWidth; 
+    		wholeshow.classList.add("add");
+		}
+		
+		
+	</script>
+
+</body>
+</html>
